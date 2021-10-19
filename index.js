@@ -20,6 +20,12 @@ app.set('view engine', 'hbs')
 // Define routes here
 app.get('/', (req, res) => res.render('index'))
 
+app.get('/sync', (req, res) => {
+    const models = require('./models')
+    models.sequelize.sync()
+    .then(() => res.send('database sync completed!'))
+}) 
+
 app.get('/:page', (req, res) => {
     const banners = {
         "blog": {
