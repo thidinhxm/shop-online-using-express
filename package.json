@@ -1,0 +1,27 @@
+{
+  "name": "learn-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thidinhxm/shop-online-using-express.git"
+  },
+  "author": "Thi Dinh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thidinhxm/shop-online-using-express/issues"
+  },
+  "homepage": "https://github.com/thidinhxm/shop-online-using-express#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
