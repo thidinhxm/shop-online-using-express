@@ -1,24 +1,27 @@
 const express = require('express')
 const app = express()
-
+const port = 3000
 // Set public static folder
 app.use(express.static(__dirname + '/public'))
 
 
 // Use Template Engine
-const  expressHbs = require('express-handlebars')
-const hbs = expressHbs.create({
+const hbs = require('express-handlebars')
+
+app.engine('hbs', hbs({
     extname: 'hbs',
     defaultLayout: 'layout',
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/'
-}) 
-
-app.engine('hbs', hbs.engine)
+}))
 app.set('view engine', 'hbs')
 
 // Define routes here
-app.get('/', (req, res) => res.render('index'))
+// / => index
+// /products => category
+// /products/:id => single-product
+app.use('/', require('./routes/indexRouter'))
+app.use('/products', require('./routes/productRouter'))
 
 app.get('/sync', (req, res) => {
     const models = require('./models')
@@ -80,4 +83,4 @@ app.get('/:page', (req, res) => {
 
 // Set Server Port& Start Server
 app.set('port', process.env.PORT || 3000)
-app.listen(app.get('port'), () =>  console.log(`Server is running at http://localhost:${app.get('port')}`))
+app.listen(port, () =>  console.log(`Server is running at http://localhost:${port}`))
