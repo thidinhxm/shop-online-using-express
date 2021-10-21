@@ -1,12 +1,12 @@
 const controller = {}
 const models = require('../models')
-const Category = models.Category
+const Brand = models.Brand
 
 controller.getAll = () => {
     return new Promise((resolve, reject) => {
-        Category
+        Brand
             .findAll({
-                attributes: ['id', 'name', 'imagepath', 'summary'],
+                attributes: ['id', 'name', 'imagepath'],
                 include: [{model: models.Product}]
             })
             .then(data => resolve(data))

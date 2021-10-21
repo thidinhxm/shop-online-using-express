@@ -12,7 +12,11 @@ app.engine('hbs', hbs({
     extname: 'hbs',
     defaultLayout: 'layout',
     layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/'
+    partialsDir: __dirname + '/views/partials/',
+
+    helpers: {
+        newId: (name) => String(name).toLowerCase().split(' ').join('-'),
+    }
 }))
 app.set('view engine', 'hbs')
 
