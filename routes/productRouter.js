@@ -8,18 +8,18 @@ router.get('/', (req, res, next) => {
         .then(data => {
             res.locals.categories = data
             const brandController = require('../controllers/brandController')
-            return brandController.getAll()
+            return brandController.getAll(req.query)
         })
         .then(data => {
             res.locals.brands = data
             const colorController = require('../controllers/colorController')
-            return colorController.getAll()
+            return colorController.getAll(req.query)
             
         })
         .then(data => {
             res.locals.colors = data
             const productController = require('../controllers/productController')
-            return productController.getAll()
+            return productController.getAll(req.query)
         })
         .then(data => {
             res.locals.products = data

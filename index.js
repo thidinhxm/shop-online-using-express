@@ -87,6 +87,5 @@ app.get('/:page', (req, res) => {
     res.render(page, banners[page])
 })
 
-// Set Server Port& Start Server
-app.set('port', process.env.PORT || 3000)
+//Start Server
 app.listen(port, () =>  console.log(`Server is running at http://localhost:${port}`))

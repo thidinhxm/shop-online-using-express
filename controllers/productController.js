@@ -19,13 +19,29 @@ controller.getTrendingProducts = () => {
     })
 }
 
-controller.getAll = () => {
+controller.getAll = (query) => {
     return new Promise((resolve, reject) => {
-        Product
-            .findAll({
-                include: [{model: models.Category}],
-                attributes: ['id', 'name', 'imagepath', 'price']
+        const options = {
+            include: [{model: models.Category}],
+            attributes: ['id', 'name', 'imagepath', 'price'],
+            where: {}
+        }
+    
+        if (query.category) {
+            options.where.categoryId = query.category
+        }
+        if (query.brand) {
+            options.where.brandId = brand
+        }
+        if (query.color) {
+            options.include.push({
+                model: models.ProductColor,
+                attributes: [],
+                where: {colorId: query.color}
             })
+        }
+        Product
+            .findAll(options)
             .then(data => resolve(data))
             .catch(error => reject(new Error(error)))
     })

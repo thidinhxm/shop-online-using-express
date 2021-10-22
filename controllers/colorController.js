@@ -2,13 +2,29 @@ const controller = {}
 const models = require('../models')
 const Color = models.Color
 
-controller.getAll = () => {
+controller.getAll = (query) => {
     return new Promise((resolve, reject) => {
+        const options = {
+            attributes: ['id', 'name', 'imagepath', 'code'],
+            include: [{
+                model: models.ProductColor,
+                include: [{
+                    model: models.Product,
+                    attributes: [],
+                    where: {},
+                }]
+            }],
+            
+        }
+
+        if (query.category) {
+            options.include[0].include[0].where.categoryId = query.category
+        }
+        if (query.brand) {
+            options.include[0].include[0].where.brandId = query.brand
+        }
         Color
-            .findAll({
-                attributes: ['id', 'name', 'imagepath', 'code'],
-                include: [{model: models.ProductColor}]
-            })
+            .findAll(options)
             .then(data => resolve(data))
             .catch(error => reject(new Error(error)))
     })
