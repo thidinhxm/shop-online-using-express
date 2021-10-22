@@ -2,6 +2,26 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
+    if ((req.query.category == null) || isNaN(req.query.category)) {
+        req.query.category = 0
+    }
+
+    if ((req.query.brand == null) || isNaN(req.query.brand)) {
+        req.query.brand = 0
+    }
+
+    if ((req.query.color == null) || isNaN(req.query.color)) {
+        req.query.color = 0
+    }
+
+    if ((req.query.min == null) || isNaN(req.query.min)) {
+        res.query.min = 0
+    }
+
+    if ((req.query.max == null) || isNaN(req.query.max)) {
+        res.query.max = 100
+    }
+
     const categoryController = require('../controllers/categoryController')
     categoryController
         .getAll()
