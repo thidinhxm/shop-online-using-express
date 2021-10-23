@@ -15,16 +15,30 @@ router.get('/', (req, res, next) => {
     }
 
     if ((req.query.min == null) || isNaN(req.query.min)) {
-        res.query.min = 0
+        req.query.min = 0
     }
 
     if ((req.query.max == null) || isNaN(req.query.max)) {
-        res.query.max = 100
+        req.query.max = 100
+    }
+
+    if (req.query.sort == null) {
+        req.query.sort = 'name'
+    }
+
+    if ((req.query.limit == null) || isNaN(req.query.limit)) {
+        req.query.limit = 9
+    } 
+    if ((req.query.page == null) || isNaN(req.query.page)) {
+        req.query.page = 1
+    } 
+    if ((req.query.search == null) || (req.query.search.trim() == '')) {
+        req.query.search = ''
     }
 
     const categoryController = require('../controllers/categoryController')
     categoryController
-        .getAll()
+        .getAll(req.query)
         .then(data => {
             res.locals.categories = data
             const brandController = require('../controllers/brandController')
