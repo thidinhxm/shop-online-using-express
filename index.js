@@ -4,7 +4,7 @@ const port = 3000
 // Set public static folder
 app.use(express.static(__dirname + '/public'))
 const helper = require('./controllers/helper')
-
+const paginateHelper = require('express-handlebars-paginate');
 // Use Template Engine
 const hbs = require('express-handlebars')
 
@@ -15,9 +15,9 @@ app.engine('hbs', hbs({
     partialsDir: __dirname + '/views/partials/',
 
     helpers: {
-        newId: helper.newId,
         createStarList: helper.createStarList,
-        createStars: helper.createStars
+        createStars: helper.createStars,
+        createPagination: paginateHelper.createPagination,
     }
 }))
 app.set('view engine', 'hbs')

@@ -1,7 +1,5 @@
 const helper = {}
 
-helper.newId = (name) => String(name).toLowerCase().split(' ').join('-')
-
 helper.createStarList = (stars) => {
     const str = `<ul class="list">
     <li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i

@@ -107,7 +107,12 @@
                   </div>
                 </div>
               </div>
-              {{/each}}
+              {{/each}}        
+            </div>
+            <div class="row justify-content-center">
+              <nav aria-label="Page navigation example" id="pagination">
+                {{{createPagination pagination paginationClass="pagination"}}}
+              </nav>
             </div>
           </section>
           <!-- End Best Seller -->
@@ -276,18 +281,32 @@
       }
     }
 
-    const checkboxes = ['category', 'brand', 'color']
+    
 
-    for (let key of checkboxes) {
-        const control = $(`#${key}${urlParams.get(key)}`)
-        if (control) {
-          $(control).prop('checked', true)
-        }
-    }
+    $(document).ready(() => {
+      const checkboxes = ['category', 'brand', 'color']
 
-    $('#sort').val(urlParams.get('sort'))
-    $('#limit').val(urlParams.get('limit'))
+      for (let key of checkboxes) {
+          const control = $(`#${key}${urlParams.get(key)}`)
+          if (control) {
+            $(control).prop('checked', true)
+          }
+      }
 
+      $('#sort').val(urlParams.get('sort'))
+      $('#limit').val(urlParams.get('limit'))
+      const savePage = urlParams.get('page')
+      $('#pagination li').addClass('page-item');
+      $('#pagination li a').addClass('page-link');
+      
+      $('#pagination li a').each((index, item) => {
+        const page = $(item).attr('href').split('=')[1]
+        urlParams.set('page', page)
+        const href = '/products?' + urlParams.toString()
+        $(item).attr('href', href)
+      })
+      urlParams.set('page', savePage)
+    })
     function selectParam(key, value, reset = false) {
       if (reset) {
         for (let key in params) {

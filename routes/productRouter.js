@@ -56,7 +56,12 @@ router.get('/', (req, res, next) => {
             return productController.getAll(req.query)
         })
         .then(data => {
-            res.locals.products = data
+            res.locals.products = data.rows
+            res.locals.pagination = {
+                page: parseInt(req.query.page),
+                limit: parseInt(req.query.limit),
+                totalRows: data.count,
+            }
             res.render('category', {
                 "title": "Shopping Category",
                 "sub-title": "Shop Category"
